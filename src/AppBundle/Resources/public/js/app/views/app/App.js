@@ -5,8 +5,15 @@ import connectToStores from 'alt-utils/lib/connectToStores';
 import Header from './Header';
 import Footer from './Footer';
 import AppStore from './AppStore';
+import AppActions from './AppActions';
 
 class App extends react.Component {
+	constructor(...args) {
+		super(...args);
+
+		AppActions.getUser();
+	}
+
 	static getStores() {
 		return [AppStore]
 	}
@@ -16,11 +23,16 @@ class App extends react.Component {
 	}
 
 	render() {
-		const user = this.props.user;
+		const props = this.props;
+
+		if (!props.initialized) {
+			return null;
+		}
+
 		return (
 			<div className="countainer-fluid">
 				<Helmet title="RaceHub" />
-				<Header user={user} />
+				<Header user={props.user} />
 				<div className="container">
 					<div className="row">
 						{this.props.children}

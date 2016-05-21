@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Link } from 'react-router';
 
 class Login extends Component {
 	constructor(...args) {
@@ -32,7 +33,7 @@ class Login extends Component {
 						onChange={this.onChange.bind(this, 'password')} />
 				</div>
 				<button type="submit" className="btn btn-success" onClick={this.onLogin}>Sign in</button>
-				<button type="submit" className="btn btn-default">Register</button>
+				<Link to="/register" className="btn btn-default">Register</Link>
 			</form>
 		);
 	}

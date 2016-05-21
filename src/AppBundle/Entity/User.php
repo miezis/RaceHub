@@ -22,6 +22,12 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="api_key", type="string", length=200)
+     */
+    private $apiKey;
 
     /**
      * Get id
@@ -31,5 +37,27 @@ class User extends BaseUser
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get apiKey
+     *
+     * @return string 
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+
+    /**
+     * Set apiKey
+     *
+     * @param string $apiKey
+     * @return User
+     */
+    public function setApiKey($apiKey) 
+    {
+        $this->apiKey = $apiKey;
+        return $this;
     }
 }

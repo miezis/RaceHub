@@ -13,6 +13,11 @@ class AppActions {
 			});
 	}
 
+	logout() {
+		AuthService.removeTokens();
+		return true;
+	}
+
 	getUser() {
 		return http.get('/user')
 			.then((response) => {
@@ -20,11 +25,13 @@ class AppActions {
 					this.getUserSuccess(response.body);
 				}
 
-				return null;
-			});
+				return this.getUserFail(response.error);
+			})
+			.catch((err) => this.getUserFail(err));
 	}
 
 	getUserSuccess = (data) => (data);
+	getUserFail = (data) => (data);
 }
 
 export default app.createActions(AppActions);

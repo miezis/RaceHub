@@ -1,5 +1,6 @@
 import { Component } from 'react';
 
+import UserDashboard from './UserDashboard';
 import AppActions from './AppActions';
 import Login from './Login';
 
@@ -21,6 +22,7 @@ class Header extends Component {
 					</div>
 					<div className="navbar-right">
 						{!user && <Login onLogin={this.onLogin} />}
+						{user && <UserDashboard user={user} />}
 					</div>
 				</div>
 			</nav>

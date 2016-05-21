@@ -4,17 +4,33 @@ import AppActions from './AppActions';
 class AppStore {
 	constructor() {
 		this.bindListeners({
-			getUser: AppActions.GET_USER_SUCCESS
+			getUser: AppActions.GET_USER_SUCCESS,
+			initialize: AppActions.GET_USER_FAIL,
+			logout: AppActions.LOGOUT
 		});
 
 		this.state = {
-			user: null
+			user: null,
+			initialized: false
 		}
 	}
 
 	getUser(user) {
 		this.setState({
-			user: user
+			user: user,
+			initialized: true
+		});
+	}
+
+	initialize() {
+		this.setState({
+			initialized: true
+		});
+	}
+
+	logout() {
+		this.setState({
+			user: null
 		});
 	}
 }
