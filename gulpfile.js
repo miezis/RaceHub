@@ -39,7 +39,7 @@ function bundleJSTask() {
 
     return gulp.src('./src/AppBundle/Resources/public/js/app/index.js')
         .pipe(webpack(options))
-        .pipe(gulp.dest('./src/AppBundle/Resources/public/js/app/dist'));
+        .pipe(gulp.dest('./web/js'));
 }
 
 function watchTask() {
