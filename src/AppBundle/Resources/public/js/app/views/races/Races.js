@@ -1,6 +1,26 @@
 import react from 'react';
+import connectToStores from 'alt-utils/lib/connectToStores';
+
+import RacesActions from './RacesActions';
+import RacesStore from './RacesStore';
 
 class Races extends react.Component {
+	static getStores() {
+		return [RacesStore]
+	}
+
+	static getPropsFromStores() {
+		return RacesStore.getState();
+	}
+
+	constructor(...args) {
+		super(...args);
+
+		setTimeout(() => {
+			RacesActions.getRaces();
+		}, 500);
+	}
+
 	render() {
 		return (
 			<div className="row">
@@ -29,4 +49,4 @@ class Races extends react.Component {
 	}
 }
 
-export default Races;
+export default connectToStores(Races);
