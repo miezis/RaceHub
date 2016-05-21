@@ -15,7 +15,7 @@ security:
             pattern: ^/oauth/v2/token
             security: false
         api:
-            pattern: ^/
+            pattern: ^/api/
             fos_oauth: true
             stateless: true
             anonymous: false

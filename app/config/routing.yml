@@ -1,3 +1,7 @@
+index:
+    resource: "AppBundle\Controller\HomeController"
+    type: annotation
+
 api:
     resource: "AppBundle\Controller\TestController"
     type: rest

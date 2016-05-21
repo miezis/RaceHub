@@ -1,14 +1,11 @@
-var testModule = require('./module.js');
 import React from 'react';
 import ReactDOM from 'react-dom';
-  
-testModule.printTest('stringas');
-console.log('yeah');
+import {Router, browserHistory as history} from 'react-router';
+import {routes} from './route-config';
 
-class HelloMessage extends React.Component {
-	render() {
-		return <div>Hello {this.props.name}</div>;
-	}
-}
+// For chrome dev tool support
+window.React = React;
 
-ReactDOM.render(<HelloMessage name="John" />, document.getElementById('my-placeholder'));
+const router = <Router history={history} routes={routes} />;
+
+ReactDOM.render(router, document.getElementById('root'));
