@@ -1,7 +1,18 @@
-import react from 'react';
+import { Component } from 'react';
 
-class Header extends react.Component {
+import AppActions from './AppActions';
+import Login from './Login';
+
+class Header extends Component {
+	constructor(...args) {
+		super(...args);
+
+		this.onLogin = this.onLogin.bind(this);
+	}
+
 	render() {
+		const user = this.props.user;
+
 		return (
 			<nav className="navbar navbar-inverse navbar-fixed-top">
 				<div className="container">
@@ -9,20 +20,18 @@ class Header extends react.Component {
 						<a className="navbar-brand" href="/">RaceHub</a>
 					</div>
 					<div className="navbar-right">
-						<form className="navbar-form">
-							<div className="form-group">
-								<input type="text" placeholder="Email" className="form-control" />
-							</div>
-							<div className="form-group">
-								<input type="password" placeholder="Password" className="form-control" />
-							</div>
-							<button type="submit" className="btn btn-success">Sign in</button>
-            				<button type="submit" className="btn btn-default">Register</button>
-						</form>
+						{!user && <Login onLogin={this.onLogin} />}
 					</div>
 				</div>
 			</nav>
 		);
+	}
+
+	onLogin(username, password) {
+		AppActions.login({
+			username,
+			password
+		});
 	}
 }
 

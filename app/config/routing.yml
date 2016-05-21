@@ -2,6 +2,11 @@ index:
     resource: "AppBundle\Controller\HomeController"
     type: annotation
 
+user:
+    resource: "@AppBundle/Controller/UsersController.php"
+    type: rest
+    prefix: /api
+
 api:
     resource: "AppBundle\Controller\TestController"
     type: rest
