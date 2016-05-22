@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -28,6 +29,19 @@ class User extends BaseUser
      * @ORM\Column(name="api_key", type="string", length=200)
      */
     private $apiKey;
+
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Race", mappedBy="user")
+     */
+    private $races;
+
+    public function __construct()
+    {
+        $this->races = new ArrayCollection();
+        parent::__construct();
+    }
 
     /**
      * Get id
@@ -58,6 +72,29 @@ class User extends BaseUser
     public function setApiKey($apiKey) 
     {
         $this->apiKey = $apiKey;
+        return $this;
+    }
+
+    /**
+     * Get Races
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRaces()
+    {
+        return $this->races;
+    }
+
+    /**
+     * Add Race
+     *
+     * @param \AppBundle\Entity\Race $race
+     * @return User
+     */
+    public function addRace(\AppBundle\Entity\Race $race)
+    {
+        $this->races[] = $race;
+
         return $this;
     }
 }

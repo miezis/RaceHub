@@ -11,6 +11,19 @@ class RacesActions {
 			});
 	}
 
+	getRacesByCurrentUser() {
+		return http.get('/user/races')
+			.then((response) => {
+				if (response.statusCode === 200) {
+					this.getRacesSuccess(response.body);
+				}
+			});
+	}
+
+	resetStoreState() {
+		return null;
+	}
+
 	getRacesSuccess = (data) => (data)
 }
 

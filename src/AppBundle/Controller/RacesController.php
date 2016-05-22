@@ -17,6 +17,14 @@ class RacesController extends FOSRestController
         return $this->handleView($view);
 	}
 
+	public function getUserRacesAction() {
+		$user = $this->get('security.context')->getToken()->getUser();
+		$data = $user->getRaces();
+
+        $view = $this->view($data);
+        return $this->handleView($view);
+	}
+
 	public function postRaceAction(Request $request)
 	{
 		

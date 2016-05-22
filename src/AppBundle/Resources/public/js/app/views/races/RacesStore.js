@@ -4,7 +4,8 @@ import RacesActions from './RacesActions';
 class RacesStore {
 	constructor() {
 		this.bindListeners({
-			getRaces: RacesActions.GET_RACES_SUCCESS
+			getRaces: RacesActions.GET_RACES_SUCCESS,
+			resetStore: RacesActions.RESET_STORE_STATE
 		});
 
 		this.state = {
@@ -17,6 +18,13 @@ class RacesStore {
 		this.setState({
 			races: races,
 			initialized: true
+		});
+	}
+
+	resetStore() {
+		this.setState({
+			races: [],
+			initialized: false
 		});
 	}
 }

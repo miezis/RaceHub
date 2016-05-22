@@ -17,7 +17,7 @@ class Races extends react.Component {
 	constructor(...args) {
 		super(...args);
 
-		RacesActions.getRaces();
+		RacesActions.getRacesByCurrentUser();
 	}
 
 	componentWillUnmount() {
@@ -27,6 +27,9 @@ class Races extends react.Component {
 	render() {
 		return (
 			<div className="row">
+        		<div className="col-md-12">
+          			<h2>My Races</h2>
+        		</div>
 				{
 					_.map(this.props.races, (race) => this.renderRaceBucket(race))
 				}
@@ -37,7 +40,8 @@ class Races extends react.Component {
 	renderRaceBucket(race) {
 		return (
 			<div className="col-md-4" key={race.id}>
-          		<h2>{race.event_name}</h2>
+            	<h3>{race.event_name}</h3>
+            	<h4>ID: {race.id}</h4>
           		<p>{race.race_class}</p>
           		<p><a className="btn btn-default" href="#" role="button">View stream results »</a></p>
 			</div>
