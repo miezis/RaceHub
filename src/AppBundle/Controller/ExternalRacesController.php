@@ -10,12 +10,11 @@ use AppBundle\Entity\Racer;
 
 class ExternalRacesController extends FOSRestController
 {
-	public function postExternalRaceAction(Request $request)
+	public function postRaceUpdateAction(Request $request)
 	{
 		$data = json_decode($request->getContent(), true);
 
 		$id = $data['id'];
-		$apiKey = $data['apiKey'];
 		$racers = $data['racers'];
 
 		$em = $this->get('doctrine')->getManager();

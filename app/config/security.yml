@@ -19,7 +19,7 @@ security:
             pattern: ^/oauth/v2/token
             security: false
         external_api:
-            pattern: ^/api/externals/
+            pattern: ^/api/races/updates
             anonymous: false
             guard:
                 authenticators:
