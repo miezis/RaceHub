@@ -44,7 +44,7 @@ class Race
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Racer", mappedBy="race")
+     * @ORM\OneToMany(targetEntity="Racer", mappedBy="race", cascade="persist")
      */
     private $racers;
 
@@ -123,5 +123,28 @@ class Race
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Get Racers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRacers()
+    {
+        return $this->racers;
+    }
+
+    /**
+     * Add Racer
+     *
+     * @param \AppBundle\Entity\Racer $racer
+     * @return Race
+     */
+    public function addRacer(\AppBundle\Entity\Racer $racer)
+    {
+        $this->racers[] = $racer;
+
+        return $this;
     }
 }

@@ -19,6 +19,9 @@ security:
             fos_oauth: true
             stateless: true
             anonymous: false
+        external_api:
+            pattern: ^/api2/testing/races/
+            anonymous: true
         # main:
         #     pattern: ^/
         #     form_login:

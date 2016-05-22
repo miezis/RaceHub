@@ -82,8 +82,8 @@ class Race extends react.Component {
 			<tr>
 				<td>{index + 1}</td>
 				<td>{racer.name}</td>
-				<td>{racer.lapCount}</td>
-				<td>{racer.bestTime / 1000}</td>
+				<td>{racer.lap_count}</td>
+				<td>{racer.best_time / 1000}</td>
 			</tr>
 		);
 	}
