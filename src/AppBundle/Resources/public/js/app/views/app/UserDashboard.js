@@ -12,7 +12,7 @@ class UserDashBoard extends Component {
 	render() {
 		return (
 			<div>
-				<p className="navbar-text">Your API Key: 37b51d194a7513e45b56f6524f2d51f2</p>
+				<p className="navbar-text">Your API Key: {this.props.user.apiKey}</p>
 	            <button className="btn btn-success navbar-btn">Create Race</button>
 	            <button className="btn btn-success navbar-btn">My Races</button>
 	            <button className="btn btn-warning navbar-btn" onClick={this.onLogout}>Logout</button>

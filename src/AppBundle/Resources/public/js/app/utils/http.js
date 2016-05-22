@@ -19,50 +19,54 @@ const http = {
         return deferred.promise;
     },
 
-    'get': (url, params, options = {cache: false}) => {
-        const deferred = when.defer();
+    'get': (url, params, options = {cache: false}, defer) => {
+        const deferred = defer ? defer : when.defer();
 
         superagent
             .get(normalizeUrl(url))
             .set(getHeaders(options.cache))
             .query(params)
+            .on('error', handleErr(deferred, url, params, options, 'get'))
             .end(handleResponse(deferred));
 
         return deferred.promise;
     },
 
-    'post': (url, params, options = {cache: false}) => {
-        const deferred = when.defer();
+    'post': (url, params, options = {cache: false}, defer) => {
+        const deferred = defer ? defer : when.defer();
 
         superagent
             .post(normalizeUrl(url))
             .set(getHeaders(options.cache))
             .send(params)
+            .on('error', handleErr(deferred, url, params, options, 'post'))
             .end(handleResponse(deferred));
 
         return deferred.promise;
     },
 
-    'put': (url, params, options = {cache: false}) => {
-        const deferred = when.defer();
+    'put': (url, params, options = {cache: false}, defer) => {
+        const deferred = defer ? defer : when.defer();
 
         superagent
             .put(normalizeUrl(url))
             .set(getHeaders(options.cache))
             .send(params)
+            .on('error', handleErr(deferred, url, params, options, 'put'))
             .end(handleResponse(deferred));
 
         return deferred.promise;
     },
 
-    'delete': (url, params) => {
-        const deferred = when.defer();
+    'delete': (url, params, options = {cache: false}, defer) => {
+        const deferred = defer ? defer : when.defer();
 
         superagent
             .del(normalizeUrl(url))
             .set(getHeaders(false))
             .send(params)
-            .end(handleResponse(deferred));
+            .on('error', handleErr(deferred, url, params, options, 'delete'))
+            .end(handleResponse(deferred, deferred));
 
         return deferred.promise;
     }
@@ -84,6 +88,20 @@ function getHeaders(cache) {
     return headers;
 }
 
+function handleErr(deferred, url, params, options, method) {
+    return (err, res) => {
+        if (err && err.status === 401) {
+            return AuthService.refreshToken()
+                .then(() => {
+                    return http[method](url, params, options, deferred);
+                });
+        }
+
+        deferred.reject(err);
+    }
+}
+
+//res has a req object, retry based on that req.method, req.url
 function handleResponse(deferred) {
     return (err, res) => {
         if (err) {

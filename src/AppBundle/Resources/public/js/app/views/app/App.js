@@ -11,7 +11,7 @@ class App extends react.Component {
 	constructor(...args) {
 		super(...args);
 
-		AppActions.getUser();
+		AppActions.authenticate();
 	}
 
 	static getStores() {

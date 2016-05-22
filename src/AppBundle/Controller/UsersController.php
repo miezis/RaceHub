@@ -15,7 +15,8 @@ class UsersController extends FOSRestController
 		$data = array(
 			"id" => $user->getId(),
 			"username" => $user->getUsername(),
-			"email" => $user->getEmail()
+			"email" => $user->getEmail(),
+			"apiKey" => $user->getApiKey()
 		);
 
         $view = $this->view($data);
@@ -35,6 +36,7 @@ class UsersController extends FOSRestController
         	$apiKey = random_bytes(60);
         	$apiKey = base64_encode($apiKey);
         	$user->setApiKey($apiKey);
+        	$user->setEnabled(true);
 
         	$userManager->updateUser($user);
             //return $user;

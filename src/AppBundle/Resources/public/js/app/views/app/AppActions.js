@@ -3,13 +3,18 @@ import http from '../../utils/http';
 import AuthService from '../../utils/AuthService';
 
 class AppActions {
+	authenticate() {
+		return AuthService.authenticate()
+			.then(() => {
+				return this.getUser();
+			});
+	}
+
 	login(payload) {
 		const { username, password } = payload;
 		return AuthService.login(username, password)
-			.then((loggedIn) => {
-				if (loggedIn) {
-					return this.getUser();
-				}
+			.then(() => {
+				return this.getUser();
 			});
 	}
 
