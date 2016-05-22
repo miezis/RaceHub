@@ -15,7 +15,7 @@ race:
 external_race:
     resource: "@AppBundle/Controller/ExternalRacesController.php"
     type: rest
-    prefix: /api2/testing
+    prefix: /api
 
 api:
     resource: "AppBundle\Controller\TestController"

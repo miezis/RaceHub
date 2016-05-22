@@ -26,7 +26,7 @@ class User extends BaseUser
     /**
      * @var string
      *
-     * @ORM\Column(name="api_key", type="string", length=200)
+     * @ORM\Column(name="api_key", type="string", length=200, unique=true)
      */
     private $apiKey;
 

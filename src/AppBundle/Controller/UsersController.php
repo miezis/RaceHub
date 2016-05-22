@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
 use AppBundle\Form\UserType;
 
 class UsersController extends FOSRestController
@@ -32,11 +33,23 @@ class UsersController extends FOSRestController
 		$jsonData = json_decode($request->getContent(), true);
         $form->bind($jsonData);
 
+
+
         if ($form->isValid()) {
         	$apiKey = random_bytes(60);
         	$apiKey = base64_encode($apiKey);
         	$user->setApiKey($apiKey);
         	$user->setEnabled(true);
+
+        	$tokenas = new PreAuthenticatedToken(
+        		$user,
+        		$apiKey,
+        		"dsd21asd",
+        		$user->getRoles()
+        	);
+
+        	$view = $this->view($tokenas);
+        	return $this->handleView($view);
 
         	$userManager->updateUser($user);
             //return $user;

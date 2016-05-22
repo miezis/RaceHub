@@ -9,19 +9,27 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username_email
+        db_provider:
+            entity:
+                class: AppBundle:User
+                property: apiKey
 
     firewalls:
         oauth_token:
             pattern: ^/oauth/v2/token
             security: false
+        external_api:
+            pattern: ^/api/externals/
+            anonymous: false
+            guard:
+                authenticators:
+                    - app.token_authenticator
         api:
             pattern: ^/api/
             fos_oauth: true
             stateless: true
             anonymous: false
-        external_api:
-            pattern: ^/api2/testing/races/
-            anonymous: true
+
         # main:
         #     pattern: ^/
         #     form_login:
