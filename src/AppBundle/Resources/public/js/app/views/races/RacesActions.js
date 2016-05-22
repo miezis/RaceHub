@@ -1,15 +1,17 @@
 import app from '../../app';
+import http from '../../utils/http';
 
 class RacesActions {
 	getRaces() {
-		const races = [
-			{ id: 1, eventName: 'ISRA World Cup 2016', raceClass: 'PR-24'},
-			{ id: 2, eventName: 'ISRA World Cup 2016', raceClass: 'ES-24'},
-			{ id: 3, eventName: 'ISRA World Cup 2016', raceClass: 'ES-32'}
-		];
-
-		return races;
+		return http.get('/races')
+			.then((response) => {
+				if (response.statusCode === 200) {
+					this.getRacesSuccess(response.body);
+				}
+			});
 	}
+
+	getRacesSuccess = (data) => (data)
 }
 
 export default app.createActions(RacesActions);

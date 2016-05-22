@@ -4,7 +4,7 @@ import RacesActions from './RacesActions';
 class RacesStore {
 	constructor() {
 		this.bindListeners({
-			getRaces: RacesActions.GET_RACES
+			getRaces: RacesActions.GET_RACES_SUCCESS
 		});
 
 		this.state = {

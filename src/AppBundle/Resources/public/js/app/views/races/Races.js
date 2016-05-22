@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import react from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
 
@@ -16,34 +17,25 @@ class Races extends react.Component {
 	constructor(...args) {
 		super(...args);
 
-		setTimeout(() => {
-			RacesActions.getRaces();
-		}, 500);
+		RacesActions.getRaces();
 	}
 
 	render() {
 		return (
 			<div className="row">
-				<div className="col-md-4">
-	          		<h2>ISRA World Cup 2016</h2>
-	          		<p>Production 24</p>
-	          		<p><a className="btn btn-default" href="#" role="button">View stream results »</a></p>
-				</div>
-				<div className="col-md-4">
-	          		<h2>ISRA World Cup 2016</h2>
-	          		<p>Eurosport 32</p>
-	          		<p><a className="btn btn-default" href="#" role="button">View stream results »</a></p>
-				</div>
-				<div className="col-md-4">
-	          		<h2>ISRA World Cup 2016</h2>
-	          		<p>Eurosport 24</p>
-	          		<p><a className="btn btn-default" href="#" role="button">View stream results »</a></p>
-				</div>
-				<div className="col-md-4">
-	          		<h2>ISRA World Cup 2016</h2>
-	          		<p>Formula-1 24</p>
-	          		<p><a className="btn btn-default" href="#" role="button">View stream results »</a></p>
-				</div>
+				{
+					_.map(this.props.races, (race) => this.renderRaceBucket(race))
+				}
+			</div>
+		);
+	}
+
+	renderRaceBucket(race) {
+		return (
+			<div className="col-md-4" key={race.id}>
+          		<h2>{race.event_name}</h2>
+          		<p>{race.race_class}</p>
+          		<p><a className="btn btn-default" href="#" role="button">View stream results »</a></p>
 			</div>
 		);
 	}
