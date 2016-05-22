@@ -19,7 +19,12 @@ class Race extends react.Component {
 
 		const props = _.first(args);
 
-		RaceActions.getRace(props.params.id);
+		this.state = {
+			refreshTime: 2000
+		};
+
+		this.onRefreshTimeChange = this.onRefreshTimeChange.bind(this);
+		this.retrieveData();
 	}
 
 	componentWillUnmount() {
@@ -42,7 +47,16 @@ class Race extends react.Component {
 					<p>Class: {race.race_class}</p>
 				</div>
 				<div className="col-md-12">
-					<p>Update every 2 seconds</p>
+					<span>Update every:</span> 
+					<select className="form-control"
+						value={this.state.refreshTime} 
+						onChange={this.onRefreshTimeChange}
+						style={{display: 'inline-block', width: 'auto'}}>
+							<option value={2000}>2 seconds</option>
+							<option value={5000}>5 seconds</option>
+							<option value={10000}>10 seconds</option>
+							<option value={15000}>15 seconds</option>
+					</select>
 				</div>
 				<div className="table-responsive col-md-12">
 					<table className="table table-striped">
@@ -72,6 +86,22 @@ class Race extends react.Component {
 				<td>{racer.bestTime / 1000}</td>
 			</tr>
 		);
+	}
+
+	retrieveData() {
+		RaceActions.getRace(this.props.params.id);
+		setTimeout(() => {
+			this.retrieveData();
+		}, this.state.refreshTime);
+	}
+
+	onRefreshTimeChange(e) {
+		e.preventDefault();
+
+		const state = this.state;
+		state.refreshTime = e.target.value;
+
+		this.setState(state);
 	}
 }
 
