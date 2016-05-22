@@ -6,6 +6,7 @@ import Race from './views/race/Race';
 import Races from './views/races/Races';
 import MyRaces from './views/races/MyRaces';
 import Register from './views/register/Register';
+import CreateRace from './views/create-race/CreateRace';
 
 const routes = (
     <Route path="/" component={App}>
@@ -13,6 +14,7 @@ const routes = (
         <Route path="register" component={Register} />
         <Route path="my-races" component={MyRaces} />
         <Route path="race/:id" component={Race} />
+        <Route path="create-race" component={CreateRace} />
     </Route>
 );
 

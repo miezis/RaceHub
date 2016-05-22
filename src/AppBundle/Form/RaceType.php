@@ -26,7 +26,8 @@ class RaceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Race'
+            'data_class' => 'AppBundle\Entity\Race',
+            'csrf_protection' => false
         ));
     }
 }

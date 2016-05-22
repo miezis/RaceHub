@@ -4,7 +4,8 @@ namespace AppBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
-use AppBundle\Form\UserType;
+use AppBundle\Form\RaceType;
+use AppBundle\Entity\Race;
 
 class RacesController extends FOSRestController
 {
@@ -35,6 +36,25 @@ class RacesController extends FOSRestController
 
 	public function postRaceAction(Request $request)
 	{
-		
+		$em = $this->get('doctrine')->getManager();
+		$race = new Race();
+
+		$form = $this->createForm(new RaceType(), $race);
+
+		$json_data =  json_decode($request->getContent(), true);
+
+		$form->bind($json_data);
+
+		if ($form->isValid()) {
+			$em->persist($race);
+
+			$em->flush();
+
+			$view = $this->view($race);
+			return $this->handleView($view);
+		} else {
+			$view = $this->view($form);
+			return $this->handleView($view);
+		}
 	}
 }
