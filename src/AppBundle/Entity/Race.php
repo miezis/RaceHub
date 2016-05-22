@@ -41,6 +41,12 @@ class Race
      */
     private $user;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Racer", mappedBy="race")
+     */
+    private $racers;
 
     /**
      * Get id

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import react from 'react';
+import { Link } from 'react-router';
 import connectToStores from 'alt-utils/lib/connectToStores';
 
 import RacesActions from './RacesActions';
@@ -43,7 +44,7 @@ class Races extends react.Component {
             	<h3>{race.event_name}</h3>
             	<h4>ID: {race.id}</h4>
           		<p>{race.race_class}</p>
-          		<p><a className="btn btn-default" href="#" role="button">View stream results »</a></p>
+          		<p><Link to={`/race/${race.id}`} className="btn btn-default" role="button">View stream results »</Link></p>
 			</div>
 		);
 	}

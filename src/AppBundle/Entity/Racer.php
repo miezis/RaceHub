@@ -50,7 +50,8 @@ class Racer
     private $bestTime;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Race")
+     * @ORM\ManyToOne(targetEntity="Race", inversedBy="racers")
+     * @ORM\JoinColumn(name="race_id", referencedColumnName="id")
      */
     private $race;
 

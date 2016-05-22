@@ -26,8 +26,7 @@ const http = {
             .get(normalizeUrl(url))
             .set(getHeaders(options.cache))
             .query(params)
-            .on('error', handleErr(deferred, url, params, options, 'get'))
-            .end(handleResponse(deferred));
+            .end(handleResponse(deferred, url, params, options, 'get'));
 
         return deferred.promise;
     },
@@ -39,8 +38,7 @@ const http = {
             .post(normalizeUrl(url))
             .set(getHeaders(options.cache))
             .send(params)
-            .on('error', handleErr(deferred, url, params, options, 'post'))
-            .end(handleResponse(deferred));
+            .end(handleResponse(deferred, url, params, options, 'post'));
 
         return deferred.promise;
     },
@@ -52,8 +50,7 @@ const http = {
             .put(normalizeUrl(url))
             .set(getHeaders(options.cache))
             .send(params)
-            .on('error', handleErr(deferred, url, params, options, 'put'))
-            .end(handleResponse(deferred));
+            .end(handleResponse(deferred, url, params, options, 'put'));
 
         return deferred.promise;
     },
@@ -65,8 +62,7 @@ const http = {
             .del(normalizeUrl(url))
             .set(getHeaders(false))
             .send(params)
-            .on('error', handleErr(deferred, url, params, options, 'delete'))
-            .end(handleResponse(deferred, deferred));
+            .end(handleResponse(deferred, url, params, options, 'delete'));
 
         return deferred.promise;
     }
@@ -88,23 +84,16 @@ function getHeaders(cache) {
     return headers;
 }
 
-function handleErr(deferred, url, params, options, method) {
-    return (err, res) => {
-        if (err && err.status === 401) {
-            return AuthService.refreshToken()
-                .then(() => {
-                    return http[method](url, params, options, deferred);
-                });
-        }
-
-        deferred.reject(err);
-    }
-}
-
 //res has a req object, retry based on that req.method, req.url
-function handleResponse(deferred) {
+function handleResponse(deferred, url, params, options, method) {
     return (err, res) => {
         if (err) {
+            if (res.statusCode === 401) {
+                return AuthService.refreshTokens()
+                    .then(() => {
+                        return http[method](url, params, options, deferred);
+                    });
+            }
             if (err.response){
                 if (err.response.type === 'application/json') {
                     err = JSON.parse(err.response.text);

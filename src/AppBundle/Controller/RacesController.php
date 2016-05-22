@@ -25,6 +25,14 @@ class RacesController extends FOSRestController
         return $this->handleView($view);
 	}
 
+	public function getRaceAction($slug) {
+		$repository = $this->get('doctrine')->getRepository('AppBundle:Race');
+		$data = $repository->find($slug);
+
+        $view = $this->view($data);
+        return $this->handleView($view);
+	}
+
 	public function postRaceAction(Request $request)
 	{
 		
