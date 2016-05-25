@@ -39,6 +39,10 @@ class RacesController extends FOSRestController
 		$em = $this->get('doctrine')->getManager();
 		$race = new Race();
 
+		$user = $this->get('security.context')->getToken()->getUser();
+
+		$race->setUser($user);
+
 		$form = $this->createForm(new RaceType(), $race);
 
 		$json_data =  json_decode($request->getContent(), true);

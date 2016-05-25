@@ -41,16 +41,6 @@ class UsersController extends FOSRestController
         	$user->setApiKey($apiKey);
         	$user->setEnabled(true);
 
-        	$tokenas = new PreAuthenticatedToken(
-        		$user,
-        		$apiKey,
-        		"dsd21asd",
-        		$user->getRoles()
-        	);
-
-        	$view = $this->view($tokenas);
-        	return $this->handleView($view);
-
         	$userManager->updateUser($user);
             //return $user;
             $view = $this->view($user);
