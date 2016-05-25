@@ -13,6 +13,11 @@ class UsersController extends FOSRestController
 	{
 		$user = $this->get('security.context')->getToken()->getUser();
 
+		if (!$user) {
+			$view = $this->view(NULL);
+        	return $this->handleView($view);
+		}
+
 		$data = array(
 			"id" => $user->getId(),
 			"username" => $user->getUsername(),

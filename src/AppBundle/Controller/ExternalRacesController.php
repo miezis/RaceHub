@@ -21,7 +21,7 @@ class ExternalRacesController extends FOSRestController
 		$em = $this->get('doctrine')->getManager();
 		$race = $em->getRepository('AppBundle:Race')->find($id);
 
-		$race->setStarted(true);
+		$race = $race->setStarted(TRUE);
 
 		if ($race->getFinished()) {
 			$view = $this->view($race);
@@ -51,7 +51,7 @@ class ExternalRacesController extends FOSRestController
 			}
 		}
 
-		$race->setFinished($finished);
+		$race->setFinished($finished === 'true');
 
 		$em->persist($race);
 		$em->flush();

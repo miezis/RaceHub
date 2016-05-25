@@ -28,7 +28,16 @@ class RacesController extends FOSRestController
 
 	public function getRaceAction($slug) {
 		$repository = $this->get('doctrine')->getRepository('AppBundle:Race');
-		$data = $repository->find($slug);
+		$race = $repository->find($slug);
+
+		$data = array(
+			'event_name' => $race->getEventName(),
+			'id' => $race->getId(),
+			'race_class' => $race->getRaceClass(),
+			'racers' => $race->getRacers(),
+			'finished' => $race->getFinished(),
+			'started' => $race->getStarted()
+		);
 
         $view = $this->view($data);
         return $this->handleView($view);
@@ -41,7 +50,9 @@ class RacesController extends FOSRestController
 
 		$user = $this->get('security.context')->getToken()->getUser();
 
-		$race->setUser($user);
+		$race = $race->setUser($user);
+		$race = $race->setStarted(FALSE);
+		$race = $race->setFinished(FALSE);
 
 		$form = $this->createForm(new RaceType(), $race);
 

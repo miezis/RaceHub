@@ -20,12 +20,14 @@ security:
             security: false
         external_api:
             pattern: ^/api/races/updates
+            provider: db_provider
             anonymous: false
             guard:
                 authenticators:
                     - app.token_authenticator
         api:
             pattern: ^/api/
+            provider: fos_userbundle
             fos_oauth: true
             stateless: true
             anonymous: false
