@@ -48,6 +48,20 @@ class Race
      */
     private $racers;
 
+    /** 
+     * @var boolean 
+     *
+     * @ORM\Column(name="started", type="boolean")
+     */
+    public $started;
+
+    /** 
+     * @var boolean 
+     *
+     * @ORM\Column(name="finished", type="boolean")
+     */
+    public $finished;
+
     /**
      * Get id
      *
@@ -146,5 +160,29 @@ class Race
         $this->racers[] = $racer;
 
         return $this;
+    }
+
+    public function setStarted($started) 
+    {
+        $this->started = (Boolean) $started;
+
+        return $this;
+    }
+
+    public function getStarted()
+    {
+        return $this->started;
+    }
+
+    public function setFinished($finished) 
+    {
+        $this->finished = (Boolean) $finished;
+
+        return $this;
+    }
+
+    public function getFinished()
+    {
+        return $this->finished;
     }
 }

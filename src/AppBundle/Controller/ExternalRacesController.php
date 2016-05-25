@@ -16,9 +16,17 @@ class ExternalRacesController extends FOSRestController
 
 		$id = $data['id'];
 		$racers = $data['racers'];
+		$finished = $data['finished'];
 
 		$em = $this->get('doctrine')->getManager();
 		$race = $em->getRepository('AppBundle:Race')->find($id);
+
+		$race->setStarted(true);
+
+		if ($race->getFinished()) {
+			$view = $this->view($race);
+			return $this->handleView($view);
+		}
 
 		$existingRacers = $race->getRacers();
 
@@ -42,6 +50,8 @@ class ExternalRacesController extends FOSRestController
 				$race = $race->addRacer($newRacer);
 			}
 		}
+
+		$race->setFinished($finished);
 
 		$em->persist($race);
 		$em->flush();
