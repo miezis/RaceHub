@@ -13,6 +13,9 @@ gulp.task('build-js', bundleJSTask);
 gulp.task('watch', watchTask);
 gulp.task('build', buildTask);
 
+gulp.task('copy-styles', copyStylesTask)
+gulp.task('copy-fonts', copyFontsTask)
+
 function bundleJSTask() {
     var dev = argv.d || argv.dev;
 
@@ -60,14 +63,28 @@ function buildTask(done) {
 
     if (dev) {
         run(
+            'copy-styles',
+            'copy-fonts',
             'build-js',
             'watch',
             done
         );
     } else {
         run(
+            'copy-styles',
+            'copy-fonts',
             'build-js',
             done
         );
     }
+}
+
+function copyStylesTask() {
+    return gulp.src('./node_modules/react-notifications/lib/notifications.css')
+        .pipe(gulp.dest('./web/css'))
+}
+
+function copyFontsTask() {
+    return gulp.src('./node_modules/react-notifications/lib/fonts/*')
+        .pipe(gulp.dest('./web/css/fonts'))
 }
