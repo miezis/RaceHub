@@ -30,6 +30,12 @@ function bundleJSTask() {
 
     if (!dev) {
         options.plugins.push(
+            new webpack.webpack.DefinePlugin({
+                'process.env': {
+                    'NODE_ENV': JSON.stringify('production')
+                }
+        }));
+        options.plugins.push(
             new webpack.webpack.optimize.UglifyJsPlugin({
                 sourceMap: false,
                 mangle: true,
