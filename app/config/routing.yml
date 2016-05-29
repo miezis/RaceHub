@@ -30,3 +30,9 @@ NelmioApiDocBundle:
 
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+to_index:
+    pattern:  /{path}
+    defaults: { _controller: AppBundle:Home:index, path: '' }
+    requirements:
+        path: .*
