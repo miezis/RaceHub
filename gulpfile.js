@@ -39,7 +39,10 @@ function bundleJSTask() {
             new webpack.webpack.optimize.UglifyJsPlugin({
                 sourceMap: false,
                 mangle: true,
-                warnings: false
+                comments: false,
+                compress: {
+                    warnings: false
+                }
         }));
     }
 
