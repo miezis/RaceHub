@@ -72,6 +72,11 @@ class AuthService {
 			refresh_token: this.getRefreshToken()
 		};
 
+		if (payload.refresh_token == 'undefined') {
+			localStorage.clear();
+			return this.authenticate();
+		}
+
 		return http.auth('/oauth/v2/token', payload)
 			.then((response) => {
 				if (response.statusCode === 200) {
