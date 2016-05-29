@@ -1,6 +1,7 @@
 import react from 'react';
 import Helmet from 'react-helmet';
 import connectToStores from 'alt-utils/lib/connectToStores';
+import {NotificationContainer} from 'react-notifications';
 
 import Header from './Header';
 import Footer from './Footer';
@@ -39,6 +40,7 @@ class App extends react.Component {
 					</div>
 					<Footer />
 				</div>
+				<NotificationContainer />
 			</div>
 		);
 	}

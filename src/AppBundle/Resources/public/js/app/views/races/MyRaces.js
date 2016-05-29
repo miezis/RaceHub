@@ -3,6 +3,7 @@ import react from 'react';
 import { Link } from 'react-router';
 import connectToStores from 'alt-utils/lib/connectToStores';
 
+import Loader from '../../utils/Loader';
 import RacesActions from './RacesActions';
 import RacesStore from './RacesStore';
 
@@ -26,6 +27,10 @@ class Races extends react.Component {
 	}
 
 	render() {
+		if (!this.props.initialized) {
+			return <Loader />;
+		}
+
 		return (
 			<div className="row">
         		<div className="col-md-12">

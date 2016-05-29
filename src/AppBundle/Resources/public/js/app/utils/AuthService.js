@@ -1,6 +1,8 @@
 import when from 'when';
 import http from './http';
 
+import { NotificationManager } from 'react-notifications';
+
 class AuthService {
 	static client_id = '2_17pd5yb9qk5c8gw0wg8ckg4os8cc08wgww4k8scg4cg0o0gg0o';
 	static client_secret = '1yfpea0m3ug0kogoc88g80w4kww0gowgc0ocgwswc8kcscck8g';
@@ -60,6 +62,7 @@ class AuthService {
 				if (response.statusCode === 200) {
 					const { access_token, refresh_token } = response.body;
 					this.setTokens(access_token, refresh_token);
+					NotificationManager.info('You\'ve been logged in.', 'Login', 5000);
 				}
 			});
 	}
@@ -72,7 +75,7 @@ class AuthService {
 			refresh_token: this.getRefreshToken()
 		};
 
-		if (payload.refresh_token == 'undefined') {
+		if (!payload.refresh_token || payload.refresh_token == 'undefined') {
 			localStorage.clear();
 			return this.authenticate();
 		}

@@ -2,6 +2,9 @@ import app from '../../app';
 import http from '../../utils/http';
 import AuthService from '../../utils/AuthService';
 
+import { browserHistory } from 'react-router'
+import { NotificationManager } from 'react-notifications';
+
 class AppActions {
 	authenticate() {
 		return AuthService.authenticate()
@@ -20,6 +23,8 @@ class AppActions {
 
 	logout() {
 		AuthService.removeTokens();
+		NotificationManager.info('You\'ve been logged out.', 'Logout', 5000);
+		browserHistory.push('/');
 		return true;
 	}
 

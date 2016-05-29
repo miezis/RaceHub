@@ -2,6 +2,7 @@ import _ from 'lodash';
 import react from 'react';
 import connectToStores from 'alt-utils/lib/connectToStores';
 
+import Loader from '../../utils/Loader';
 import RaceActions from './RaceActions';
 import RaceStore from './RaceStore';
 
@@ -35,7 +36,7 @@ class Race extends react.Component {
 		const race = this.props.race;
 
 		if (!race) {
-			return null;
+			return <Loader />;
 		}
 
 		const raceInProgress = race.started && !race.finished;

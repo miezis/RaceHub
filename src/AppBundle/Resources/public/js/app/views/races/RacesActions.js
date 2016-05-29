@@ -1,5 +1,6 @@
 import app from '../../app';
 import http from '../../utils/http';
+import { NotificationManager } from 'react-notifications';
 
 class RacesActions {
 	getRaces() {
@@ -7,6 +8,8 @@ class RacesActions {
 			.then((response) => {
 				if (response.statusCode === 200) {
 					this.getRacesSuccess(response.body);
+				} else {
+					NotificationManager.error('Failed to retrieve races, please try again later.', 'Races', 5000);
 				}
 			});
 	}
@@ -16,6 +19,8 @@ class RacesActions {
 			.then((response) => {
 				if (response.statusCode === 200) {
 					this.getRacesSuccess(response.body);
+				} else {
+					NotificationManager.error('Failed to retrieve user races, please try again later.', 'User Races', 5000);
 				}
 			});
 	}

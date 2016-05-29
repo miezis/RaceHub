@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Link } from 'react-router';
 
 import UserDashboard from './UserDashboard';
 import AppActions from './AppActions';
@@ -18,7 +19,7 @@ class Header extends Component {
 			<nav className="navbar navbar-inverse navbar-fixed-top">
 				<div className="container">
 					<div className="navbar-header">
-						<a className="navbar-brand" href="/">RaceHub</a>
+						<Link className="navbar-brand" to="/">RaceHub</Link>
 					</div>
 					<div className="navbar-right">
 						{!user && <Login onLogin={this.onLogin} />}
