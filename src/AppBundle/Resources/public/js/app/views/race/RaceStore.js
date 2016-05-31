@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import app from '../../app';
 import RaceActions from './RaceActions';
 
@@ -14,6 +15,7 @@ class RaceStore {
 	}
 
 	getRace(race) {
+		race.racers = _.orderBy(race.racers, 'lap_count', 'desc');
 		this.setState({
 			race: race
 		});
