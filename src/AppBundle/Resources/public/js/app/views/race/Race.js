@@ -24,11 +24,13 @@ class Race extends react.Component {
 			refreshTime: 2000
 		};
 
+		this.timeoutId = null;
 		this.onRefreshTimeChange = this.onRefreshTimeChange.bind(this);
 		this.retrieveData();
 	}
 
 	componentWillUnmount() {
+		clearTimeout(this.timeoutId);
 		RaceActions.resetStoreState();
 	}
 
@@ -102,7 +104,7 @@ class Race extends react.Component {
 
 		RaceActions.getRace(this.props.params.id);
 
-		setTimeout(() => {
+		this.timeoutId = setTimeout(() => {
 			this.retrieveData();
 		}, this.state.refreshTime);
 	}
