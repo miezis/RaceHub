@@ -79,12 +79,14 @@ function buildTask(done) {
     }
 }
 
+var notificationsPath = './node_modules/react-notifications/lib/';
+
 function copyStylesTask() {
-    return gulp.src('./node_modules/react-notifications/lib/notifications.css')
+    return gulp.src(notificationsPath + 'notifications.css')
         .pipe(gulp.dest('./web/css'))
 }
 
 function copyFontsTask() {
-    return gulp.src('./node_modules/react-notifications/lib/fonts/*')
+    return gulp.src(notificationsPath + 'fonts/*')
         .pipe(gulp.dest('./web/css/fonts'))
 }
